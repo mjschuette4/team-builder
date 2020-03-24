@@ -1,56 +1,29 @@
 import React, { useState } from 'react';
 import './App.css';
 import Form from "./Form";
-// import TeamCard from "./TeamCard";
+import TeamCard from "./TeamCard";
 
 
 function App() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    role: ""
-  });
 
-  const inputChange = event => {
-    setFormData({...formData,
-    [event.target.name]: event.target.value
-    });
-    console.log(formData);
-  };
-  const [teamList] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
 
-  const submitForm = event => {
-    teamList.push(formData);
-    setFormData({
-      name: "",
-      email: "",
-      role: ""
-    });
-    event.preventDefault();
-  };
-  return(
-  <div className="App">
-      <header className="App-header">
-        <Form
-          inputChange={inputChange}
-          formData={formData}
-          submitForm={submitForm}
-        />
-      </header>
-      {/* <h3>Team List</h3>
-      <div className="card-wrapper">
-        {teamList.map(data => {
-          return (
-            // <TeamCard
-              // name={data.name}
-              // email={data.email}
-              // role={data.role}
-            // />
-          );
-        })} */}
+  const addMember = card => {
+    const newCard = {
+        name: card.name,
+        email: card.email,
+        role: card.role
+    };
+    setTeamMembers([...teamMembers, newCard]);
+  }
+
+  return (
+      <div>
+          <Form addMember={addMember} />
+          <TeamCard teamMembers={teamMembers} />
       </div>
-    // </div>
   );
 }
+
 
 export default App;
